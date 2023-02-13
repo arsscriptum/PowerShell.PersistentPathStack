@@ -8,7 +8,7 @@
 $Script:RegLogEnabled = $False
 
 
-function Write-RegLog {
+function Write-RegLog {    ## NOEXPORT
 
     <#
     .SYNOPSIS
@@ -71,7 +71,7 @@ function Write-RegLog {
 New-Alias -Name 'log' -Value 'Write-RegLog' -ErrorAction Ignore -Force
 
 
-function Get-RegSetRootPath{  
+function Get-RegSetRootPath{     ## NOEXPORT
     $Base = "HKCU:\Software\{0}\PersistentPathStack" -f "$ENV:USERNAME"
     if( -not ( Test-Path $Base ) ){
         New-Item -Path $Base -ItemType Directory -Force -ErrorAction Ignore | Out-Null
@@ -79,7 +79,7 @@ function Get-RegSetRootPath{
     return "$Base"
 }
 
-function Get-LastIndexForId{
+function Get-LastIndexForId{   ## NOEXPORT
 
     [CmdletBinding(SupportsShouldProcess)]
     param(
@@ -109,7 +109,7 @@ function Get-LastIndexForId{
     return $LastId
 }
 
-function Get-NextIndexForId{
+function Get-NextIndexForId{   ## NOEXPORT
 
     [CmdletBinding(SupportsShouldProcess)]
     param(
@@ -137,7 +137,7 @@ function Get-NextIndexForId{
     return $Ret
 }
 
-function New-RegSetItem{
+function New-RegSetItem{   ## NOEXPORT
 <#
     .Synopsis
     Add a string, to the list associated to the ID in the registry.
@@ -174,7 +174,7 @@ function New-RegSetItem{
 }
 
 
-function Get-RegSetLastItem{
+function Get-RegSetLastItem{   ## NOEXPORT
 <#
     .Synopsis
     Get a string, from the list associated to the ID in the registry
@@ -227,7 +227,7 @@ function Get-RegSetLastItem{
 }
 
 
-function Get-RegSetItemList{
+function Get-RegSetItemList{   ## NOEXPORT
 <#
     .Synopsis
     Get all the strings, from the list associated to the ID in the registry
@@ -279,7 +279,7 @@ function Get-RegSetItemList{
 
 
 
-function Remove-RegSetItemString{
+function Remove-RegSetItemString{   ## NOEXPORT
 <#
     .Synopsis
     Delete all the strings, from the list associated to the ID in the registry
@@ -344,7 +344,7 @@ function Remove-RegSetItemString{
 
 
 
-function Remove-RegSetItemList{
+function Remove-RegSetItemList{   ## NOEXPORT
 <#
     .Synopsis
     Delete all the strings, from the list associated to the ID in the registry

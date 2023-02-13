@@ -17,7 +17,7 @@ function New-PersistentPath{
     New-RegSetItem -Identifier "$Script:PathId" -String $Path
 }
 
-function Pop-PersistentPath{
+function Remove-PersistentPath{ 
 
     [CmdletBinding(SupportsShouldProcess)]
     param()
@@ -45,3 +45,32 @@ function Get-PersistentPathList{
 
 
 
+function Push-PersistentPath{
+
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory=$true,Position=0)]
+        [Alias('p')]
+        [String]$Path
+    )
+    $Valid = Test-Path $Path -PathType Container
+    if($Valid){
+        New-PersistentPath $Path
+        Set-Location $Path
+    }else{
+        throw "invalid path"
+    }
+}
+
+
+function Pop-PersistentPath{
+
+    [CmdletBinding(SupportsShouldProcess)]
+    param()
+
+    $Path = Remove-PersistentPath
+    $Valid = ( [string]::IsNullOrEmpty( $Path ) -eq $False )
+    if($Valid){
+        Set-Location $Path
+    }
+}

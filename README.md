@@ -9,8 +9,22 @@ Reddit user [ripanarapakeka](https://www.reddit.com/user/ripanarapakeka/) was as
 I decided to make a saved history of path using the registry.
 
 
-### Details
+### Functions
+
+Those are the 2 main functions that you will use, they replace the usual popd and pushd
+- Pop-PersistentPath
+- Push-PersistentPath
+
+To get the whole stack 
+- Get-PersistentPathList
+
+To add and peek, remove:
+
+- New-PersistentPath
+- Peek-PersistentPath
+- Remove-PersistentPath
 
 
-...
+## Published
 
+https://www.powershellgallery.com/packages/PowerShell.PersistentPathStack/1.0.36

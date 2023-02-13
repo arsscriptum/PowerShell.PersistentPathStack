@@ -6,7 +6,7 @@
 
 
 
-function Publish-RegistryChanges
+function Publish-RegistryChanges   ## NOEXPORT
 {
 
     <#
@@ -94,7 +94,7 @@ function Publish-RegistryChanges
 
 
 
-function Test-RegistryValue
+function Test-RegistryValue   ## NOEXPORT
 {
 <#
     .Synopsis
@@ -137,7 +137,7 @@ function Test-RegistryValue
 
 
 
-function Get-RegistryValue
+function Get-RegistryValue   ## NOEXPORT
 {
 <#
     .Synopsis
@@ -184,7 +184,7 @@ function Get-RegistryValue
 
 
 
-function Set-RegistryValue
+function Set-RegistryValue   ## NOEXPORT
 {
 <#
     .Synopsis
@@ -244,7 +244,7 @@ function Set-RegistryValue
 
 
 
-function Remove-RegistryValue
+function Remove-RegistryValue   ## NOEXPORT
 {
 <#
     .Synopsis
@@ -295,7 +295,7 @@ function Remove-RegistryValue
 
 
 
-function New-RegistryValue
+function New-RegistryValue   ## NOEXPORT
 {
 <#
     .Synopsis
