@@ -20,11 +20,11 @@ To add and peek, remove:
 - Remove-PersistentPath
 
 
-## Push-PersistentPath explained
+## Push-PersistentPath details
 
 The ```Push-PersistentPath```, replaces the ```Push-Location``` cmdlet. It pushes a location onto the location stack. The new location is now at the top of the stack. You can continue adding locations to the stack as necessary. The location is saved in the registry so that it can be used in other powershell sesions.
 
-## Pop-Location explained
+## Pop-PersistentPath details
 
 The ```Pop-PersistentPath```, replaces the ```Pop-Location``` cmdlet. It pops a location onto the location stack. The new location is now at the top of the stack. You can continue adding locations to the stack as necessary. The location is saved in the registry so that it can be used in other powershell sesions.
 
@@ -50,16 +50,26 @@ When you use Push/Pop-PersistentPath followed by a drive path, you move to that 
 
 Push-PersistentPath and Pop-PersistentPath can access locations in multiple ```stacks``` . By default, the stack named ***default*** is used, but you can specify anoth stack name when calling Pop/Push-PersistentPath. Similarly, you can list the PersistentPath using ```Get-PersistentPaths```
 
+This will list all stacks names
+
+```
+    Get-PersistentPathStacks
+```
+
 This will get all values from all stacks
 
-
 ```
+	# This will get all values from all stacks
      Get-PersistentPaths -All
+
+     # This will get values from the stack "MyStack"
+     Get-PersistentPaths -StackName MyStack
 ```
+
 
 ## Published
 
-https://www.powershellgallery.com/packages/PowerShell.PersistentPathStack/1.0.47
+https://www.powershellgallery.com/packages/PowerShell.PersistentPathStack/1.0.73
 
 ![demo](https://raw.githubusercontent.com/arsscriptum/PowerShell.PersistentPathStack/main/gif/demo.gif)
 
