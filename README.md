@@ -27,4 +27,4 @@ To add and peek, remove:
 
 ## Published
 
-https://www.powershellgallery.com/packages/PowerShell.PersistentPathStack/1.0.36
+https://www.powershellgallery.com/packages/PowerShell.PersistentPathStack/1.0.41
