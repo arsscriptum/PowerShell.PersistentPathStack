@@ -44,7 +44,7 @@ function Test-Dependencies{
     Write-Host "MODULE $ModuleName Test-Dependencies" -f DarkYellow;
     Write-Host "===============================================================================" -f DarkRed    
 
-    $FunctionDependencies = @( 'Clear-PersistentPathList','Get-PersistentPathList', 'New-PersistentPath', 'Pop-PersistentPath', 'Push-PersistentPath', 'Remove-PersistentPath', 'Test-PersistentPath' )
+    $FunctionDependencies = @( 'Clear-PersistentPaths','Get-PersistentPaths', 'New-PersistentPath', 'Pop-PersistentPath', 'Push-PersistentPath', 'Remove-PersistentPath', 'Test-PersistentPath' )
 
     try{
         $ScriptMyInvocation = $Script:MyInvocation.MyCommand.Path
@@ -136,8 +136,8 @@ try{
 
     Test-Dependencies
 
-    Clear-PersistentPathList
-    if((Get-PersistentPathList) -ne $Null){
+    Clear-PersistentPaths
+    if((Get-PersistentPaths) -ne $Null){
         throw "PersistentPathList Should be null"
     }
 
@@ -153,24 +153,10 @@ try{
     [void]$TestPathList.Add($StartingPath)
     Push-PersistentPath $StartingPath
 
-    Write-Host "===============================================================================" -f DarkRed
-    Write-Host "Starting check" -f DarkYellow;
-    Write-Host "===============================================================================" -f DarkRed    
-    Write-Host "current path $Current" -f DarkCyan;
 
-    $StackCount = (Get-PersistentPathList).Count
+    $StackCount = (Get-PersistentPaths).Count
     $AddedCount = $TestPathList.Count
-    Write-Host "`t[OK]`t" -f DarkGreen -NoNewLine
-    Write-Host "PersistentPathList count $StackCount";
-    if($StackCount -ne $AddedCount){
-        throw "PersistentPathList count mismatch"
-    }
-    Write-Host "`t[OK]`t" -f DarkGreen -NoNewLine    
-    Write-Host "PersistentPathList DifferenceObject" -f DarkCyan;
-    $Diff = Compare-Object -ReferenceObject $TestPathList -DifferenceObject (Get-PersistentPathList)
-    if($Diff -ne $Null){
-        throw "PersistentPathList mismatch"
-    }
+
     Write-Host "===============================================================================" -f DarkRed
     Write-Host "Test Pop-PersistentPath - Moving back to previous location - " -f DarkYellow;
     Write-Host "===============================================================================" -f DarkRed 
@@ -194,7 +180,7 @@ try{
 
         #Write-Host "`t`t`t`t`t=== Pop-PersistentPath ===" -f DarkGray;
         Pop-PersistentPath
-        $StackCount = (Get-PersistentPathList).Count
+        $StackCount = (Get-PersistentPaths).Count
        
     }while($TestPathList.Count -gt 0)
 

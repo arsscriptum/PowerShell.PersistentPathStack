@@ -79,6 +79,83 @@ function Get-RegSetRootPath{     ## NOEXPORT
     return "$Base"
 }
 
+function Get-RegSetStacksPath{     ## NOEXPORT
+    $Root = Get-RegSetRootPath
+    $Base = "{0}\Stacks" -f $Root
+    if( -not ( Test-Path $Base ) ){
+        New-Item -Path $Base -ItemType Directory -Force -ErrorAction Ignore | Out-Null
+    }
+    $Base
+}
+
+function New-RegSetStack{   ## NOEXPORT
+<#
+    .Synopsis
+    Add a stack
+    .Parameter $StackName
+    id
+#>
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory=$true,Position=0)]
+        [String]$StackName
+    )
+
+    $Base = Get-RegSetStacksPath
+    try{
+        $Found = Test-RegistryValue "$Base" "$StackName" 
+        if($Found -eq $False){
+             $null=New-RegistryValue "$Base" "$StackName" "$StackName" "string"  
+        }
+    }catch{
+       Write-Verbose "$_"
+    }
+   
+}
+
+function Remove-RegSetStack{   ## NOEXPORT
+<#
+    .Synopsis
+    Add a stack
+    .Parameter $StackName
+    id
+#>
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory=$true,Position=0)]
+        [String]$StackName
+    )
+
+    $Base = Get-RegSetStacksPath
+    try{
+        $Found = Test-RegistryValue "$Base" "$StackName" 
+        if($Found){
+            $null=Remove-RegistryValue "$Base" "$StackName"     
+        }else{
+            throw "no such stack id"
+        }
+    }catch{
+        Write-Error "$_"
+    }
+}
+
+function Get-RegSetStacks{   ## NOEXPORT
+<#
+    .Synopsis
+    Get all the registered stacks
+#>
+    [CmdletBinding(SupportsShouldProcess)]
+    param()
+
+    $Base = Get-RegSetStacksPath
+    
+    $StackItems = Get-Item $Base
+    $List = $StackItems.Property
+
+    return $List
+}
+
+
 function Get-LastIndexForId{   ## NOEXPORT
 
     [CmdletBinding(SupportsShouldProcess)]
@@ -401,3 +478,18 @@ function Remove-RegSetItemList{   ## NOEXPORT
     
 }
 
+
+function Clear-PersistentPathStacks{    ## NOEXPORT
+
+    [CmdletBinding(SupportsShouldProcess)]
+    param()
+    $Official = Get-PersistentPaths -All | Select -ExpandProperty Stack
+    $Sketchy = Get-RegSetStacks
+    ForEach($item in $Sketchy){
+        Write-Verbose "Checking $item"
+        if( ($Official.Contains($item)) -eq $False ){
+             Write-Verbose " $item NOT in stacks, remove... "
+             Remove-RegSetStack -$StackName $item
+        }
+    }
+}
