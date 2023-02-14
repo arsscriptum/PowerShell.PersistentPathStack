@@ -28,3 +28,14 @@ To add and peek, remove:
 ## Published
 
 https://www.powershellgallery.com/packages/PowerShell.PersistentPathStack/1.0.41
+
+
+----------------------------------------------------------
+demo
+
+![demo](https://raw.githubusercontent.com/arsscriptum/PowerShell.PersistentPathStack/main/gif/demo.gif)
+
+----------------------------------------------------------
+test
+
+![test](https://raw.githubusercontent.com/arsscriptum/PowerShell.PersistentPathStack/main/gif/test.gif)
