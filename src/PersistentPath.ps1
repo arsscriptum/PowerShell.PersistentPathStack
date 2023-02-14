@@ -26,7 +26,7 @@ function Remove-PersistentPath{
 }
 
 
-function Peek-PersistentPath{
+function Test-PersistentPath{
 
     [CmdletBinding(SupportsShouldProcess)]
     param()
@@ -73,10 +73,26 @@ function Pop-PersistentPath{
 
     [CmdletBinding(SupportsShouldProcess)]
     param()
-
+    Write-Verbose "Pop-PersistentPath"
+    # Get the latest path in the stack
     $Path = Remove-PersistentPath
-    $Valid = ( [string]::IsNullOrEmpty( $Path ) -eq $False )
-    if($Valid){
-        Set-Location $Path
+    if( [string]::IsNullOrEmpty($Path) ){
+        Write-Verbose "Path is NULL"
+        return $Null
     }
+    Write-Verbose "NextPath is $Path"
+    # Compare with the current path, if same, chek for the next one
+    $Current = (Get-Location).Path
+    
+    $Peek = Test-PersistentPath
+    Write-Verbose "CurrentPath is $Current, peek next in stack $Peek"
+    if( ($Path -eq $Current) -and ([string]::IsNullOrEmpty($Peek) -eq $False) ){
+        $Path = Remove-PersistentPath
+        Write-Verbose "Remove next in stack $Path"
+    }
+    if( [string]::IsNullOrEmpty($Path) ){
+        return $Null
+    }
+     Write-Verbose "Set-Location $Path"
+    Set-Location $Path
 }
