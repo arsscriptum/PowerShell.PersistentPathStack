@@ -489,7 +489,7 @@ function Clear-PersistentPathStacks{    ## NOEXPORT
         Write-Verbose "Checking $item"
         if( ($Official.Contains($item)) -eq $False ){
              Write-Verbose " $item NOT in stacks, remove... "
-             Remove-RegSetStack -$StackName $item
+             Remove-RegSetStack -StackName $item
         }
     }
 }

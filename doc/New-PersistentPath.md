@@ -13,7 +13,7 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-New-PersistentPath [-Path] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PersistentPath [-Path] <String> [-StackName <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -55,6 +55,21 @@ Aliases: p
 
 Required: True
 Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -StackName
+{{ Fill StackName Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: s
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

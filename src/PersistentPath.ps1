@@ -33,6 +33,7 @@ function Remove-PersistentPath{
     )
     $PathId = "PersistentPath_{0}" -f $StackName
     $Path = Get-RegSetLastItem -Identifier "$PathId" -Delete
+    Clear-PersistentPathStacks
     return $Path
 }
 
@@ -50,6 +51,12 @@ function Test-PersistentPath{
     return $Path
 }
 
+function Get-PersistentPathStacks{
+
+    [CmdletBinding(SupportsShouldProcess)]
+    param()
+    return Get-RegSetStacks
+}
 
 function Get-PersistentPaths{
 
@@ -59,19 +66,11 @@ function Get-PersistentPaths{
         [Alias('s')]
         [String]$StackName="default",
         [Parameter(Mandatory=$false)]
-        [switch]$Stacks,
-        [Parameter(Mandatory=$false)]
         [switch]$All
 
     )
-    if($Stacks){
-        Clear-PersistentPathStacks
-
-        return Get-RegSetStacks
-    }    
+   
     if($All){
-        Clear-PersistentPathStacks
-
         $Ret = [System.Collections.ArrayList]::new()
         Write-Verbose "Getting all stacks"
         $StackList = Get-RegSetStacks
@@ -85,8 +84,7 @@ function Get-PersistentPaths{
             Write-Verbose "Get-RegSetItemList $PathId ListCount $ListCount"
             ForEach($item in $List){
                 Write-Verbose "$sid => $item"
-                
-
+    
                 $o = [PscustomObject]@{
                     Path = $item
                     Stack = $sid

@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Test-PersistentPath
+# Clear-PersistentPaths
 
 ## SYNOPSIS
 {{ Fill in the Synopsis }}
@@ -13,7 +13,7 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Test-PersistentPath [[-StackName] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Clear-PersistentPaths [[-StackName] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
