@@ -43,6 +43,12 @@ function Get-PersistentPathList{
     return $List
 }
 
+function Clear-PersistentPathList{
+
+    [CmdletBinding(SupportsShouldProcess)]
+    param()
+    Remove-RegSetItemList -Identifier "$Script:PathId"
+}
 
 
 function Push-PersistentPath{
