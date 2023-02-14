@@ -53,12 +53,18 @@ function Push-PersistentPath{
         [Alias('p')]
         [String]$Path
     )
-    $Valid = Test-Path $Path -PathType Container
-    if($Valid){
-        New-PersistentPath $Path
+    $ErrorOccured = $False
+    try{
         Set-Location $Path
+    }catch{
+        $ErrorOccured = $True
+    }
+
+    if($ErrorOccured){
+        Write-Host "Invalid Path $Path"  -f Red
     }else{
-        throw "invalid path"
+        $FullPath = ($PWD).Path
+        New-PersistentPath $FullPath  
     }
 }
 
