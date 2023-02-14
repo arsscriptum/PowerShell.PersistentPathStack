@@ -60,6 +60,10 @@ function Push-PersistentPath{
         [String]$Path
     )
     $ErrorOccured = $False
+
+    $PreviousPath = (Get-Location).Path
+    $ItemCount = (Get-PersistentPathList).Count
+
     try{
         Set-Location $Path
     }catch{
@@ -69,6 +73,9 @@ function Push-PersistentPath{
     if($ErrorOccured){
         Write-Host "Invalid Path $Path"  -f Red
     }else{
+        if($ItemCount -eq 0){
+            New-PersistentPath $PreviousPath  
+        }        
         $FullPath = ($PWD).Path
         New-PersistentPath $FullPath  
     }
